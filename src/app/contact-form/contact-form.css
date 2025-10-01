@@ -1,0 +1,18 @@
+    .container {
+      max-width: 900px;
+    }
+    .social-btn {
+        transition: transform 0.2s ease-in-out;
+    }
+    .social-btn:hover {
+        transform: translateY(-3px); /* Effetto sollevamento sul social */
+    }
+    .captcha-group {
+        display: flex;
+        align-items: center;
+        gap: 15px; /* Spazio tra domanda e input */
+    }
+    /* Stile per l'input del CAPTCHA per allinearsi con la domanda */
+    .captcha-group input {
+        width: auto !important;
+    }

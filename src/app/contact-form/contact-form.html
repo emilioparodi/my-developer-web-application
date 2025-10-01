@@ -1,0 +1,93 @@
+<!-- Sezione Contact Form con Sfondo Chiaro -->
+<section id="contact-form" class="py-5 bg-light">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+
+        <!-- 2. Contact Form Card -->
+        <div class="card shadow-lg border-0">
+          <div class="card-body p-4 p-md-5">
+            <h3 class="card-title text-center mb-4 display-6 fw-bold text-dark">Ask me!</h3>
+            <section class="contact-form-content">
+
+              <!-- Messaggi di Stato (Utilizzando il nuovo controllo di flusso @if) -->
+              @if (formStatus() === 'success') {
+                <div class="alert alert-success text-center" role="alert">
+                  Thank you! Your message has been sent successfully.
+                </div>
+              }
+              @if (formStatus() === 'error') {
+                <div class="alert alert-danger text-center" role="alert">
+                  Something went wrong while sending your message. Please try again later.
+                </div>
+              }
+              @if (formStatus() === 'sending') {
+                <div class="alert alert-info text-center" role="alert">
+                  Sending your message... please wait.
+                </div>
+              }
+
+              <!-- Formulario -->
+              @if (formStatus() !== 'success' && formStatus() !== 'sending') {
+                <form
+                  id="contactForm"
+                  action="https://formspree.io/f/xyznjybe"
+                  method="POST"
+                  (submit)="validateForm($event)"
+                >
+
+                  <!-- Input Nome -->
+                  <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" id="name" name="name" class="form-control" required>
+                  </div>
+
+                  <!-- Input Email (Il nome '_replyto' è standard Formspree) -->
+                  <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" id="email" name="_replyto" class="form-control" required>
+                  </div>
+
+                  <!-- Area Messaggio -->
+                  <div class="mb-3">
+                    <label for="message" class="form-label">Message</label>
+                    <textarea id="message" name="message" rows="5" class="form-control" required></textarea>
+                  </div>
+
+                  <!-- CAPTCHA Group -->
+                  <div class="mb-3 captcha-group">
+                    <label for="captchaInput" class="form-label fw-bold">{{ captchaQuestion() }}</label>
+                    <input type="number" id="captchaInput" name="captcha" class="form-control" required style="max-width: 120px;">
+                  </div>
+
+                  <!-- Privacy Checkbox -->
+                  <div class="mb-3 form-check">
+                    <input type="checkbox" id="privacyCheck" name="privacy" class="form-check-input" required>
+                    <label for="privacyCheck" class="form-check-label">
+                      I accept the
+                      <a routerLink="/privacy-and-cookie-policy" routerLinkActive="active" class="text-primary" style="text-decoration: none;">Privacy&Cookie Policy.</a>
+                    </label>
+                  </div>
+
+                  <!-- Messaggio di Errore Locale (Gestito da JS) -->
+                  <div id="error-message" class="alert alert-warning" style="display:none;">
+                      Please fill in all fields, accept the privacy policy, and complete the CAPTCHA.
+                  </div>
+
+                  <!-- Bottone di Invio -->
+                  <button
+                    type="submit"
+                    class="btn btn-primary w-100"
+                    [disabled]="formStatus() === 'sending'"
+                  >
+                    Send message
+                  </button>
+                </form>
+              }
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,78 @@
+/* Container principale: Assicurati che l'intera sezione sia centrata e allineata */
+#experience .container {
+  max-width: 1000px; /* Limita la larghezza per un aspetto più gestibile */
+}
+
+/* 1. Imposta la posizione relativa per l'allineamento della linea */
+.experience-item {
+  position: relative;
+  padding-bottom: 50px; /* Spazio uniforme tra gli elementi */
+}
+
+/* 2. Stile e posizionamento della linea verticale (PIÙ SOTTILE) */
+.timeline-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 58%; /* La tua correzione per l'allineamento */
+  width: 1px; /* Ridotto da 3px a 2px */
+  /* Trasla orizzontalmente del 50% della propria larghezza (2px) per un centraggio perfetto */
+  transform: translateX(-50%);
+  z-index: 5;
+}
+
+/* 3. Stile e posizionamento del puntino (PIÙ PICCOLO) */
+.timeline-dot {
+  width: 10px; /* Ridotto da 15px a 10px */
+  height: 10px; /* Ridotto da 15px a 10px */
+  position: absolute;
+  /* Posiziona il puntino in base alla riga superiore e al centro */
+  top: 18px; /* Leggermente rialzato per compensare la dimensione più piccola */
+  left: 58%; /* La tua correzione per l'allineamento */
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+/* 4. Nasconde la linea verticale all'ultimo elemento */
+.row.experience-item:last-child .timeline-line {
+  display: none !important;
+}
+
+/* 5. Correggiamo l'allineamento verticale per il contenuto della Card */
+.experience-item .card {
+    margin-top: 10px;
+}
+
+
+/* Adattamento Mobile */
+@media (max-width: 767.98px) {
+
+  /* Nasconde la colonna centrale su mobile */
+  .timeline-dot,
+  .timeline-line,
+  .col-md-2 {
+    display: none !important;
+  }
+
+  .experience-item {
+    padding-bottom: 20px; /* Riduci il padding su mobile */
+  }
+
+  /* Rimuovi l'ordine invertito su mobile */
+  .experience-item .order-md-1,
+  .experience-item .order-md-2 {
+      order: 0 !important;
+  }
+
+  /* Allinea tutto a sinistra su mobile */
+  .experience-item .text-md-end {
+    text-align: left !important;
+  }
+
+  /* Simula la linea della timeline con un bordo sinistro sulla card */
+  .experience-item .card {
+    border-left: 2px solid var(--bs-primary); /* Bordo più sottile anche su mobile */
+    padding-left: 15px;
+    margin-top: 0;
+  }
+}

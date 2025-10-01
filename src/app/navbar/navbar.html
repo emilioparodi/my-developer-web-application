@@ -1,0 +1,34 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-primary-subtle text-primary-emphasis mb-3">
+  <div class="container-fluid">
+    <a class="navbar-brand" [routerLink]="'.'"><i>ƎP</i> Dev</a>
+
+    <button class="navbar-toggler" type="button" (click)="isMenuCollapsed = !isMenuCollapsed">&#9776;</button>
+
+    <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse">
+
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item active">
+          <a class="nav-link" [routerLink]="'/'" [fragment]="'about'" (click)="isMenuCollapsed = true; scrollToElement('about')">About |</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="'/'" [fragment]="'skills'" (click)="isMenuCollapsed = true; scrollToElement('skills')"> Skills |</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="'/'" [fragment]="'experience'" (click)="isMenuCollapsed = true; scrollToElement('experience')"> Experience |</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="'/'" [fragment]="'portfolio'" (click)="isMenuCollapsed = true; scrollToElement('portfolio')"> Portfolio |</a>
+        </li>
+      </ul>
+
+      <div class="d-flex align-items-center">
+        <a class="nav-link" [routerLink]="'/'" [fragment]="'contact-form'" (click)="isMenuCollapsed = true; scrollToElement('contact-form')">
+          <button class="btn btn-primary" type="button">
+            Contact
+          </button>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</nav>
