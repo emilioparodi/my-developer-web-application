@@ -1,6 +1,9 @@
-# Questo file è stato modificato in locale per correggere il path di build di Angular
+# Questo file è auto-generato da Firebase CLI, ma modificato per il deploy di Angular.
+# URL del progetto: https://github.com/firebase/firebase-tools
+
 name: Deploy to Firebase Hosting on merge
 on:
+  # L'azione si attiva ogni volta che c'è un 'push' sul branch 'main'
   push:
     branches:
       - main
@@ -8,15 +11,33 @@ jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
     steps:
+      # Checkout del codice
       - uses: actions/checkout@v4
-      - run: npm ci && npm run build
 
-      # NUOVO STEP AGGIUNTO: COPIA L'OUTPUT CORRETTO (necessario per Angular)
-      - run: cp -r dist/*/browser/* dist/browser/
+      # Step 1: Installazione delle dipendenze e Build di Angular
+      # Il comando 'npm ci && npm run build' crea i file compilati.
+      - name: Build Angular Application
+        run: npm ci && npm run build
 
+      # Step 2: Creazione della Cartella di Destinazione
+      # Questo è CRUCIALE perché Firebase cerca i file qui (dist/browser),
+      # ma il comando di copia ha bisogno che la cartella esista.
+      - name: Create Target Directory
+        run: mkdir -p dist/browser
+
+      # Step 3: Copia l'Output di Angular nel Path Corretto
+      # Copia i file generati da Angular (che sono in dist/nome-progetto/browser)
+      # nel path atteso da Firebase (dist/browser).
+      # La sintassi dist/*/browser/* è generica e funziona indipendentemente
+      # dal nome della cartella di output del tuo progetto.
+      - name: Copy Build Files to Target Path
+        run: cp -r dist/*/browser/* dist/browser/
+
+      # Step 4: Deploy su Firebase Hosting
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
+          # Sostituito con l'ID esatto del tuo Service Account
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_MYDEVAPP_20779 }}
           channelId: live
           projectId: mydevapp-20779
